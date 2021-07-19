@@ -27,7 +27,7 @@ class EmployeeRequest extends FormRequest
             'name' => 'required',
             'employee_number' => 'required|numeric',
             'base_salary' => 'required|numeric',
-            'department' => 'required'
+            'department' => 'required',
         ];
     }
 }

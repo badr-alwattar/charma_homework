@@ -45,11 +45,35 @@
                     <option value="">__Please Select__</option>
                     <option value="sales" @if(old('department') == 'sales') selected @endif>Sales</option>
                     <option value="accounting" @if(old('department') == 'accounting') selected @endif>Accounting</option>
-                    <option value="customer_relations" @if(old('department') == 'customer_relations') selected @endif>Customer Relations</option>
+                    <option value="customers_relations" @if(old('department') == 'customers_relations') selected @endif>Customer Relations</option>
                 </select>
                 @error('department')
                     <small class="form-text text-danger">{{ $message }}</small>
                 @enderror
+            </div>
+        </div>
+        <div class="col-sm-8">
+            <div class="form-group">
+                <div class="container-fluid">
+                    <div class="row">
+                        <label for="exampleFormControlSelect1">Allowance Types</label>
+                    </div>
+                    <div class="row">
+                        @foreach ($allowance_types as $allowance_type)
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="checkbox" id="allowance_types" value="{{$allowance_type->id}}" name="allowance_types[]" @if(in_array($allowance_type->id , old('allowance_types') != null ? old('allowance_types') : [] )) checked @endif>
+                                <label class="form-check-label" for="allowance_types">{{$allowance_type->type}}</label>
+                            </div>
+                        @endforeach
+                        @error('allowance_types')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                        @enderror
+                    </div>
+                </div>
+                
+                
+                
+               
             </div>
         </div>
         <div class="col-sm-12">

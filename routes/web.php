@@ -23,4 +23,6 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () { // only auth users can access these routes
     Route::resource('employee', EmployeeController::class);
     Route::get('/home', [HomeController::class, 'index'])->name('home');
+    Route::get('/pieChartData', [HomeController::class, 'pieChartData'])->name('pie.chart.data');
+    Route::get('/SalariesChart', [HomeController::class, 'SalariesChart'])->name('slalries.chart');
 });

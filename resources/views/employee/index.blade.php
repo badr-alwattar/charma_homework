@@ -21,6 +21,7 @@
                         <th scope="col">Name En</th>
                         <th scope="col">Emp No.</th>
                         <th scope="col">Department</th>
+                        <th scope="col">Salary</th>
                         <th scope="col">Actions</th>
                     </tr>
                 </thead>
@@ -30,6 +31,7 @@
                             <td>{{$employee->name}}</td>
                             <td>{{$employee->employee_number}}</td>
                             <td>{{$employee->department}}</td>
+                            <td>{{$employee->salary}}</td>
                             
                             <td>
                                 <div class="btn-group" role="group">

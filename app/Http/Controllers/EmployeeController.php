@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests\EmployeeRequest;
 use App\Models\Employee;
+use App\Models\AllowanceType;
 class EmployeeController extends Controller
 {
     /**
@@ -26,7 +27,8 @@ class EmployeeController extends Controller
      */
     public function create()
     {
-        return view('employee.create');
+        $allowance_types = AllowanceType::all();
+        return view('employee.create', compact('allowance_types'));
     }
 
     /**
@@ -36,8 +38,10 @@ class EmployeeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(EmployeeRequest $request)
-    {     
-        Employee::create($request->validated());
+    {   
+        // dd($request->allowance_types);  
+        $employee = Employee::create($request->validated());
+        $employee->allowance_types()->sync($request->allowance_types ? $request->allowance_types : []);
         return redirect(route('employee.index'))->with('success', 'Data Was Added Successfully');
     }
 
@@ -58,9 +62,10 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Employee $employee)
     {
-        //
+        $allowance_types = AllowanceType::all();
+        return view('employee.edit', compact('allowance_types', 'employee'));
     }
 
     /**
@@ -73,6 +78,7 @@ class EmployeeController extends Controller
     public function update(EmployeeRequest $request, Employee $employee)
     {
         $employee->update($request->validated());
+        $employee->allowance_types()->sync($request->allowance_types ? $request->allowance_types : []);
         return redirect(route('employee.index'))->with('success', 'Data Was Updated Successfully');
     }
 
@@ -82,8 +88,9 @@ class EmployeeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Employee $employee)
     {
-        //
+        $employee->delete();
+        return redirect(route('employee.index'))->with('success', 'Data Was Deleted Successfully');
     }
 }
